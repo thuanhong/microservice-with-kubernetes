@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-deployment
+  labels:
+    name: store-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      server: store_web
+  strategy:
+    rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+    type: RollingUpdate 
+  template:
+    metadata:
+      labels:
+        server: store_web
+    spec:
+      containers:
+      - name: store-web
+        image: thuan324/jobbee_server:webstore
+        env:
+        - name: MONGO_DB_URI
+          value: mongodb://mongo-service/database
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "0.1"
+          limits:
+            memory: "100Mi"
+            cpu: "0.15"
+        ports:
+          - containerPort: 3000
+      imagePullSecrets:
+        - name: regcred

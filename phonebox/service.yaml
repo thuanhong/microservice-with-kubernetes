@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: phonebox-websvc
+spec:
+  selector:
+    server: phonebox_web
+  type: ClusterIP
+  ports:
+  - port: 3000
+    targetPort: 3000

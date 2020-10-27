@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web-ingress
+spec:
+  rules:
+  - host: phonebox.kubernetes.thuanhong.io
+    http:
+      paths: 
+      - path: /
+        backend:
+          serviceName: phonebox-websvc
+          servicePort: 3000
+
+  - host: ncovid.kubernetes.thuanhong.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: ncovid-frontend-websvc
+          servicePort: 80
+      - path: /api
+        backend:
+          serviceName: ncovidback
+          servicePort: 80
+      - path: /swagger
+        backend:
+          serviceName: ncovidback
+          servicePort: 80
+
+  - host: portfolio.kubernetes.thuanhong.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: portfolio-websvc
+          servicePort: 80
+
+  - host: store.kubernetes.thuanhong.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: store-websvc
+          servicePort: 3000

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ncovid-frontend-deployment
+  labels:
+    name: ncovid-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      server: ncovid-frontend
+  strategy:
+    rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+    type: RollingUpdate 
+  template:
+    metadata:
+      labels:
+        server: ncovid-frontend
+    spec:
+      containers:
+      - name: ncovid-frontend
+        image: thuan324/jobbee_server:ncovid-frontend
+        resources:
+          requests:
+            memory: "20Mi"
+            cpu: "0.05"
+          limits:
+            memory: "50Mi"
+            cpu: "0.1"
+        ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: regcred

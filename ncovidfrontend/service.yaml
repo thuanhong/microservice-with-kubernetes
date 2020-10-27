@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ncovid-frontend-websvc
+spec:
+  selector:
+    server: ncovid-frontend
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80

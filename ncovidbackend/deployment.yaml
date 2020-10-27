@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ncovid-backend-deployment
+  labels:
+    name: ncovid-backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      server: ncovid-backend
+  strategy:
+    rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+    type: RollingUpdate 
+  template:
+    metadata:
+      labels:
+        server: ncovid-backend
+    spec:
+      containers:
+      - name: phonebox-web
+        image: thuan324/jobbee_server:ncovid-backend
+        resources:
+          requests:
+            memory: "80Mi"
+            cpu: "0.1"
+          limits:
+            memory: "100Mi"
+            cpu: "0.2"
+        ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: regcred

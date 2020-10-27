@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: portfolio-websvc
+spec:
+  selector:
+    server: portfolio_web
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80

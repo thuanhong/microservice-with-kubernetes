@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: store-websvc
+spec:
+  selector:
+    server: store_web
+  type: ClusterIP
+  ports:
+  - port: 3000
+    targetPort: 3000

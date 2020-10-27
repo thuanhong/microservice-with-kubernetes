@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-deployment
+  labels:
+    name: portfolio-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      server: portfolio_web
+  strategy:
+    rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+    type: RollingUpdate 
+  template:
+    metadata:
+      labels:
+        server: portfolio_web
+    spec:
+      containers:
+      - name: portfolio-web
+        image: thuan324/jobbee_server:portfolio
+        resources:
+          requests:
+            memory: "50Mi"
+            cpu: "0.05"
+          limits:
+            memory: "70Mi"
+            cpu: "0.1"
+        ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
